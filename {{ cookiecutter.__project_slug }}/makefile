@@ -11,8 +11,8 @@ DOCKER_COMPOSE_FILE := ./compose.yaml
 DOCKER_BUILD_ARGS = \
     --build-arg USER_UID='$(USER_UID)' \
     --build-arg USER_GID='$(USER_GID)' \
-    --build-arg GIT_COMMIT='$(shell git show -s --format=%H)' \
-    --build-arg GIT_COMMIT_DATE='$(shell git show -s --date=iso8601 --format=%ci)' \
+    --build-arg GIT_COMMIT='$(or $(shell git show -s --format=%H), no_git)' \
+    --build-arg GIT_COMMIT_DATE='$(or (shell git show -s --date=iso8601 --format=%ci), no_git)' \
     --build-arg IMAGE_NAME='$(PROJECT)' \
     --build-arg BUILD_DATE='$(shell date --iso-8601=seconds)'
 
