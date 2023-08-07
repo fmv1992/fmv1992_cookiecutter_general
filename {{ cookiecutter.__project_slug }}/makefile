@@ -1,0 +1,59 @@
+SHELL := /bin/bash -euo pipefail
+export ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+
+export PROJECT ?= {{ cookiecutter.__project_slug }}
+
+export USER_UID := $(shell id -u)
+export USER_GID := $(shell id -g)
+
+DOCKER_COMPOSE_FILE := ./compose.yaml
+
+DOCKER_BUILD_ARGS = \
+    --build-arg USER_UID='$(USER_UID)' \
+    --build-arg USER_GID='$(USER_GID)' \
+    --build-arg GIT_COMMIT='$(shell git show -s --format=%H)' \
+    --build-arg GIT_COMMIT_DATE='$(shell git show -s --date=iso8601 --format=%ci)' \
+    --build-arg IMAGE_NAME='$(PROJECT)' \
+    --build-arg BUILD_DATE='$(shell date --iso-8601=seconds)'
+
+# Section. --- {{ "{{{" }}
+
+all: dev check test format
+
+dev:
+	cp -rf ./other/git/hooks/* ./.git/hooks/
+
+up:
+	docker-compose --file $(DOCKER_COMPOSE_FILE) up --detach
+
+down:
+	docker-compose --file $(DOCKER_COMPOSE_FILE) down --remove-orphans
+
+run:
+	docker-compose \
+        --file $(DOCKER_COMPOSE_FILE) \
+        run \
+        --rm \
+        --entrypoint '' \
+        {{ cookiecutter.__project_slug }} \
+        $(DOCKER_CMD)
+
+shell:
+
+build:
+	docker-compose --file $(DOCKER_COMPOSE_FILE) build $(DOCKER_BUILD_ARGS)
+
+check:
+
+test:
+	exit 0
+
+format: format_yaml format_json
+
+format_yaml:
+	find $(ROOT_DIR) \( -iname '*.yml' -o -iname '*.yaml' -o -iname '.yamlfmt' \) -type f -print0 | xargs -0 -n 100 -- yamlfmt
+
+format_json:
+	find . -iname '*.json' -print0 | parallel --null --max-args 1 -- 'python3 -m json.tool --sort-keys {} > /tmp/$(PROJECT)_{/}_{#} && mv /tmp/$(PROJECT)_{/}_{#} {}'
+
+#  --- {{ "}}}" }}
