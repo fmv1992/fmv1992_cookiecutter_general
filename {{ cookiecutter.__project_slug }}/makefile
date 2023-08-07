@@ -16,6 +16,10 @@ DOCKER_BUILD_ARGS = \
     --build-arg IMAGE_NAME='$(PROJECT)' \
     --build-arg BUILD_DATE='$(shell date --iso-8601=seconds)'
 
+ifndef DOCKER_RUN_CMD
+    DOCKER_RUN_CMD := bash
+endif
+
 # Section. --- {{ "{{{" }}
 
 all: dev check test format
@@ -36,7 +40,7 @@ run:
         --rm \
         --entrypoint '' \
         {{ cookiecutter.__project_slug }} \
-        $(DOCKER_CMD)
+        $(DOCKER_RUN_CMD)
 
 shell:
 
