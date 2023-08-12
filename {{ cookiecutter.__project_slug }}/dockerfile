@@ -6,6 +6,13 @@ ARG PROJECT
 run set -x ; [[ -n $PROJECT ]]
 ENV PROJECT $PROJECT
 
+RUN apt-get update \
+        && apt-get install --yes \
+            dumb-init \
+            sudo \
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/*
+
 {% set user_jinja = 'user_' + cookiecutter.__project_slug %}
 ARG USER_UID
 RUN set -x ; [[ -n $USER_UID ]]
@@ -13,16 +20,22 @@ ARG USER_GID
 RUN set -x ; [[ -n $USER_GID ]]
 RUN groupadd --system --gid $USER_GID {{ user_jinja }} \
     && useradd --no-log-init --create-home --system --gid $USER_GID {{ user_jinja }}
+
+# Set up sudo.
+RUN echo "{{ user_jinja }} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/{{ user_jinja }} \
+    && chmod 0440 /etc/sudoers.d/{{ user_jinja }}
+
+# Switch to regular user.
 USER {{ user_jinja }}
 ENV HOME /home/user_{{ cookiecutter.__project_slug }}
 RUN mkdir -p $HOME
-RUN mkdir -p $HOME/${PROJECT}
+
+COPY --chown={{ user_jinja }}:{{ user_jinja }} . $HOME/$PROJECT
+
 WORKDIR $HOME/${PROJECT}
 
-# COPY --chown={{ user_jinja }}:{{ user_jinja }} makefile makefile
-
 CMD ["bash"]
-ENTRYPOINT []
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
 ARG GIT_COMMIT
 RUN set -x ; [[ -n $GIT_COMMIT ]]
@@ -30,11 +43,15 @@ RUN set -x ; [[ -n $GIT_COMMIT ]]
 ARG BUILD_DATE
 RUN set -x ; [[ -n $BUILD_DATE ]]
 
+ARG GIT_COMMIT_DATE
+RUN set -x ; [[ -n $GIT_COMMIT_DATE ]]
+
+ARG IMAGE_NAME
+RUN set -x ; [[ -n $IMAGE_NAME ]]
+
 # Inject as envvars so they're accessible inside
 ENV IMAGE_NAME="$IMAGE_NAME" \
         BUILD_DATE="$BUILD_DATE" \
-        BUILD_URL="$BUILD_URL" \
-        BUILD_NUMBER="$BUILD_NUMBER" \
         GIT_COMMIT="$GIT_COMMIT" \
         GIT_COMMIT_DATE="$GIT_COMMIT_DATE"
 

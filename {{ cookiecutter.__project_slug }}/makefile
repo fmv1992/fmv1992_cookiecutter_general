@@ -12,17 +12,17 @@ DOCKER_BUILD_ARGS = \
     --build-arg USER_UID='$(USER_UID)' \
     --build-arg USER_GID='$(USER_GID)' \
     --build-arg GIT_COMMIT='$(or $(shell git show -s --format=%H), no_git)' \
-    --build-arg GIT_COMMIT_DATE='$(or (shell git show -s --date=iso8601 --format=%ci), no_git)' \
+    --build-arg GIT_COMMIT_DATE='$(or $(shell git show -s --date=iso8601 --format=%ci), no_git)' \
     --build-arg IMAGE_NAME='$(PROJECT)' \
     --build-arg BUILD_DATE='$(shell date --iso-8601=seconds)'
 
 ifndef DOCKER_RUN_CMD
-    DOCKER_RUN_CMD := bash
+    DOCKER_RUN_CMD := /usr/bin/dumb-init -- bash
 endif
 
 # Section. --- {{ "{{{" }}
 
-all: dev check test format
+all: dev check build test format
 
 dev:
 	cp -rf ./other/git/hooks/* ./.git/hooks/
@@ -38,7 +38,6 @@ run:
         --file $(DOCKER_COMPOSE_FILE) \
         run \
         --rm \
-        --entrypoint '' \
         {{ cookiecutter.__project_slug }} \
         $(DOCKER_RUN_CMD)
 
@@ -50,7 +49,7 @@ build:
 check:
 
 test:
-	exit 0
+	DOCKER_RUN_CMD='bash -c '"'"'bash -xv ./other/tests/test.sh'"'" make run
 
 format: format_yaml format_json
 

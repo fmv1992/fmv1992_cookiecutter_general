@@ -15,8 +15,7 @@ rm -rf /tmp/tmp.cookiecutter.* || true
 tmpdir=$(mktemp --directory --tmpdir=/tmp/ tmp.cookiecutter.$(date '+%s').XXXXXX)
 echo '
 {
-    "project_name": "xyzabc",
-    "__myprop": "abct"
+    "project_name": "xyzabc"
 }
 ' | jq > ${tmpdir}/replay.json
 cd ${tmpdir}
@@ -25,7 +24,7 @@ cd ${tmpdir}/*/
 git init . && git comm --allow-empty -m "first (empty) commit"
 git add --all && git comm --allow-empty -m "just cloned"
 make all
-make down build format test
+make down dev check build test format
 git_check_clean
 
 tree "${tmpdir}"

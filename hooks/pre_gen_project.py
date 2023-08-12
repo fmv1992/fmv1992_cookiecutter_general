@@ -19,8 +19,7 @@ import sys
 
 
 def main():
-    __myprop = '{{ cookiecutter.__myprop }}'
-    assert __myprop
+    pass
 
 
 if __name__ == "__main__":
