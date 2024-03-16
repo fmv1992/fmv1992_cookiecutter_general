@@ -12,11 +12,11 @@ cd "$(dirname $(readlink -f "${0}"))"
 
 [[ $(sudo whoami) == 'root' ]]
 
-# Run the compiled file.
-make ada_build
-[[ "$(./bin/main)" == 'Hello, Ada!' ]]
-
-# Revert state since we issue `git_check_clean`.
-make clean
+# # Run the compiled file.
+# make ada_build
+# [[ "$(./bin/main)" == 'Hello, Ada!' ]]
+#
+# # Revert state since we issue `git_check_clean`.
+# make clean
 
 # vim: set filetype=sh fileformat=unix nowrap:

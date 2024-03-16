@@ -62,7 +62,7 @@ test:
 format: format_ada format_yaml format_json
 
 format_ada:
-	exit 1
+	find . \( -iname '*.adb' -o -iname '*.ads' \) -print0 | parallel --null -- 'gnatpp -pipe {} | sponge {}'
 
 format_yaml:
 	find $(ROOT_DIR) \( -iname '*.yml' -o -iname '*.yaml' -o -iname '.yamlfmt' \) -type f -print0 | xargs -0 -n 100 -- yamlfmt
