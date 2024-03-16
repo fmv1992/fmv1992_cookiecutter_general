@@ -26,6 +26,8 @@ git add --all && git comm --allow-empty -m "just cloned"
 pwd | xclip
 make all
 make down dev check build test format
+! git_check_clean
+make clean
 git_check_clean
 
 tree "${tmpdir}"
