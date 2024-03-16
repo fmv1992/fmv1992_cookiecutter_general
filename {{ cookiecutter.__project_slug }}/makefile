@@ -49,7 +49,7 @@ docker_build:
 	docker-compose --file $(DOCKER_COMPOSE_FILE) build $(DOCKER_BUILD_ARGS)
 
 ada_build:
-	gprbuild project.gpr
+	gprbuild my_project.gpr
 
 check:
 

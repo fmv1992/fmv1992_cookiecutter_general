@@ -23,6 +23,7 @@ cookiecutter --no-input $HOME/dev/pud/fmv1992_cookiecutter_general $(jq -r 'to_e
 cd ${tmpdir}/*/
 git init . && git comm --allow-empty -m "first (empty) commit"
 git add --all && git comm --allow-empty -m "just cloned"
+pwd | xclip
 make all
 make down dev check build test format
 git_check_clean
