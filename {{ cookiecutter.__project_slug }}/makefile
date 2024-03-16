@@ -43,8 +43,13 @@ run:
 
 shell:
 
-build:
+build: ada_build docker_build
+
+docker_build:
 	docker-compose --file $(DOCKER_COMPOSE_FILE) build $(DOCKER_BUILD_ARGS)
+
+ada_build:
+	gprbuild project.gpr
 
 check:
 
