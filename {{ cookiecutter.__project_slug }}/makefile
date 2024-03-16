@@ -33,6 +33,9 @@ up:
 down:
 	docker-compose --file $(DOCKER_COMPOSE_FILE) down --remove-orphans
 
+clean:
+	rm --force ./bin/* ./obj/*
+
 run:
 	docker-compose \
         --file $(DOCKER_COMPOSE_FILE) \

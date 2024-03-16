@@ -2,6 +2,8 @@
 *
 
 # But not these files...
+!*.adb
+!*.ads
 !*.config
 !dockerfile
 !.dockerignore
@@ -9,6 +11,7 @@
 !*.ex
 !.gitignore
 !.gitkeep
+!*.gpr
 !*.hrl
 !makefile
 !*.md
