@@ -51,7 +51,10 @@ check:
 test:
 	DOCKER_RUN_CMD='bash -c '"'"'bash -xv ./other/tests/test.sh'"'" make run
 
-format: format_yaml format_json
+format: format_ada format_yaml format_json
+
+format_ada:
+	exit 1
 
 format_yaml:
 	find $(ROOT_DIR) \( -iname '*.yml' -o -iname '*.yaml' -o -iname '.yamlfmt' \) -type f -print0 | xargs -0 -n 100 -- yamlfmt
@@ -60,3 +63,5 @@ format_json:
 	find . -iname '*.json' -print0 | parallel --null --max-args 1 -- 'python3 -m json.tool --sort-keys {} > /tmp/$(PROJECT)_{/}_{#} && mv /tmp/$(PROJECT)_{/}_{#} {}'
 
 #  --- {{ "}}}" }}
+
+# vim: set noexpandtab foldmethod=marker fileformat=unix filetype=make nowrap foldtext=foldtext():

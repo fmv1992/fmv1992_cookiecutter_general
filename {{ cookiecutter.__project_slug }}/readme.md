@@ -1,5 +1,11 @@
 # `{{ cookiecutter.__project_slug }}`
 
+<!--
+
+Ada project layout:
+
+-->
+
 One line summary.
 
 Longer explanation 01.

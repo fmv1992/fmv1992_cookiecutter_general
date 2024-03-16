@@ -1,0 +1,8 @@
+project My_Project is
+   for Main use ("main.adb");
+   for Source_Dirs use ("src");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+end My_Project;
+
+-- vim: set filetype=ada fileformat=unix nowrap spell spelllang=en,cdenglish01:
