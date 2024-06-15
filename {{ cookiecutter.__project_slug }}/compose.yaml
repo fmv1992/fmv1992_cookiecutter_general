@@ -1,3 +1,5 @@
+{% set user_jinja = 'user_' + cookiecutter.__project_slug %}
+
 version: '3.3'
 services:
     {{ cookiecutter.__project_slug }}:
@@ -15,8 +17,8 @@ services:
         tty: true # docker run -t
 #       volumes:
 #           - type: bind
-#             source: ${ROOT_DIR}/airflow/dags
-#             target: /app/airflow/dags
+#             source: ${ROOT_DIR}/{{ cookiecutter.__project_slug }}
+#             target: /home/{{ user_jinja }}/{{ cookiecutter.__project_slug }}
 #             read_only: false
 
 # vim: set filetype=yaml fileformat=unix nowrap spell spelllang=en ts=4 sts=4 sw=4 :
