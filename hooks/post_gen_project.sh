@@ -11,14 +11,18 @@ set -euo pipefail
 
 echo "Running \`post_gen_project.sh\` in \`${PWD}\`." >&2
 
-find . | sort --unique
+# Ensure we are at a recently created directory.
+if (($(find . -type f | wc --lines) >= 100)); then
+    echo "The execution place of this script is probably wrong." >&2
+    exit 1
+fi
 
-# find . -type f -print0 \
-#     | parallel --null --group --keep-order --jobs $(nproc) --max-args 10 \
-#         -- \
-#         '
-# sed --in-place --regexp-extended '"'"'s#⟨⟨⟨#\x7B\x7B\x7B#g'"'"' {}
-# sed --in-place --regexp-extended '"'"'s#⟩⟩⟩#\x7D\x7D\x7D#g'"'"' {}
-#         '
+find . -type f -print0 \
+    | parallel --null --group --keep-order --jobs $(nproc) --max-args 10 \
+        -- \
+        '
+sed --in-place --regexp-extended '"'"'s#⟨⟨⟨#\x7B\x7B\x7B#g'"'"' {}
+sed --in-place --regexp-extended '"'"'s#⟩⟩⟩#\x7D\x7D\x7D#g'"'"' {}
+        '
 
 # vim: set filetype=sh fileformat=unix nowrap:
