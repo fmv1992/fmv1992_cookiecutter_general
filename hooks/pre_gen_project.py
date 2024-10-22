@@ -13,6 +13,13 @@ Useful links:
 1.  <https://stackoverflow.com/questions/72077557/how-to-use-dynamic-variables-in-cookiecutter-hooks>.
 
 1.  <https://github.com/samj1912/cookiecutter-advanced-demo/blob/master/hooks/pre_gen_project.py>.
+
+But see that with double underscores the desired effect can be achieved:
+<https://cookiecutter.readthedocs.io/en/latest/advanced/private_variables.html#private-variables>:
+
+> Cookiecutter allows the definition private variables by prepending an
+> underscore to the variable name. The user will not be required to fill those
+> variables in.
 """
 
 import sys
