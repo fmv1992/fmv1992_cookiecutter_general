@@ -8,6 +8,8 @@ export USER_GID := $(shell id -g)
 
 DOCKER_COMPOSE_FILE := ./compose.yaml
 
+DOCKER_COMPOSE_CMD := docker compose
+
 DOCKER_BUILD_ARGS = \
     --build-arg USER_UID='$(USER_UID)' \
     --build-arg USER_GID='$(USER_GID)' \
@@ -28,13 +30,13 @@ dev:
 	cp -rf ./other/git/hooks/* ./.git/hooks/
 
 up:
-	docker compose --file $(DOCKER_COMPOSE_FILE) up --detach
+	$(DOCKER_COMPOSE_CMD) --file $(DOCKER_COMPOSE_FILE) up --detach
 
 down:
-	docker compose --file $(DOCKER_COMPOSE_FILE) down --remove-orphans
+	$(DOCKER_COMPOSE_CMD) --file $(DOCKER_COMPOSE_FILE) down --remove-orphans
 
 run:
-	docker compose \
+	$(DOCKER_COMPOSE_CMD) \
         --file $(DOCKER_COMPOSE_FILE) \
         run \
         --rm \
@@ -44,7 +46,7 @@ run:
 shell:
 
 build:
-	docker compose --file $(DOCKER_COMPOSE_FILE) build $(DOCKER_BUILD_ARGS)
+	$(DOCKER_COMPOSE_CMD) --file $(DOCKER_COMPOSE_FILE) build $(DOCKER_BUILD_ARGS)
 
 check:
 
