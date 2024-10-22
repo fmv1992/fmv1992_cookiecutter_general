@@ -8,7 +8,7 @@ ARG PROJECT
 run set -x ; [[ -n $PROJECT ]]
 ENV PROJECT $PROJECT
 
-# Create an unpriviledged user. --- {{{
+# Create an unpriviledged user. --- ⟨⟨⟨
 
 RUN apt-get update \
         && apt-get install --yes \
@@ -29,11 +29,11 @@ RUN groupadd --system --gid $USER_GID {{ user_jinja }} \
 RUN echo "{{ user_jinja }} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/{{ user_jinja }} \
         && chmod 0440 /etc/sudoers.d/{{ user_jinja }}
 
-# --- }}}
+# --- ⟩⟩⟩
 
-# ???. --- {{{
+# ???. --- ⟨⟨⟨
 
-# --- }}}
+# --- ⟩⟩⟩
 
 # Switch to regular user.
 USER {{ user_jinja }}
@@ -42,7 +42,7 @@ RUN mkdir -p $HOME
 
 COPY --chown={{ user_jinja }}:{{ user_jinja }} . $HOME/$PROJECT
 
-# Administrative settings: define commands, etc. --- {{{
+# Administrative settings: define commands, etc. --- ⟨⟨⟨
 
 WORKDIR $HOME/${PROJECT}
 
@@ -70,6 +70,6 @@ ENV IMAGE_NAME="$IMAGE_NAME" \
 LABEL \
     org.opencontainers.image.title="$IMAGE_NAME"
 
-# --- }}}
+# --- ⟩⟩⟩
 
 # vim: set filetype=dockerfile fileformat=unix nowrap spell spelllang=en,cdenglish01:
