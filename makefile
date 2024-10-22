@@ -12,7 +12,9 @@ check:
 
 test:
 	bash -xv ./other/tests/test_instantiation.sh
-	echo 'Success! ✔'
+	@echo "-------------------------------------------------------------------------------" >&2
+	@echo 'Success! ✔' >&2
+	@echo "-------------------------------------------------------------------------------" >&2
 
 git_delete_stale_branches:
 	git_delete_stale_branches --delete --git-directory . --config-directory ./other/git/branches/
