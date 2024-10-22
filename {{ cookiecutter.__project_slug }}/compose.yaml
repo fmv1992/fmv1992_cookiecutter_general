@@ -1,16 +1,16 @@
 {% set user_jinja = 'user_' + cookiecutter.__project_slug %}
 
-version: '3.3'
 services:
     {{ cookiecutter.__project_slug }}:
         build:
             args:
-                - USER_UID
-                - USER_GID
-                - PROJECT
+                - BUILD_DATE
                 - GIT_COMMIT
                 - GIT_COMMIT_DATE
-                - BUILD_DATE
+                - IMAGE_NAME
+                - PROJECT
+                - USER_GID
+                - USER_UID
             context: .
         stdin_open: true # docker run -i
         entrypoint: ''
