@@ -28,13 +28,13 @@ dev:
 	cp -rf ./other/git/hooks/* ./.git/hooks/
 
 up:
-	docker-compose --file $(DOCKER_COMPOSE_FILE) up --detach
+	docker compose --file $(DOCKER_COMPOSE_FILE) up --detach
 
 down:
-	docker-compose --file $(DOCKER_COMPOSE_FILE) down --remove-orphans
+	docker compose --file $(DOCKER_COMPOSE_FILE) down --remove-orphans
 
 run:
-	docker-compose \
+	docker compose \
         --file $(DOCKER_COMPOSE_FILE) \
         run \
         --rm \
@@ -44,7 +44,7 @@ run:
 shell:
 
 build:
-	docker-compose --file $(DOCKER_COMPOSE_FILE) build $(DOCKER_BUILD_ARGS)
+	docker compose --file $(DOCKER_COMPOSE_FILE) build $(DOCKER_BUILD_ARGS)
 
 check:
 
