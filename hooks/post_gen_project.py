@@ -8,7 +8,7 @@ import sys
 
 
 def main():
-    print(f"Running `{__file__}`.", file=sys.stderr)
+    print(f"Running `post_gen_project.py`.", file=sys.stderr)
 
 
 if __name__ == "__main__":

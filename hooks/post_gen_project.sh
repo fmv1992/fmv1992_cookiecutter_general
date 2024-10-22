@@ -7,21 +7,18 @@
 # Halt on error.
 set -euo pipefail
 
-# Go to execution directory.
-cd "$(dirname $(readlink -f "${0}"))"
-# cd "$(git rev-parse --show-toplevel)"
-# test -d ./.git
+# Do **NOT** change the execution directory.
 
-bname="$(basename "$0")"
+echo "Running \`post_gen_project.sh\` in \`${PWD}\`." >&2
 
-echo "Running \`${bname}\` in \`${PWD}\`." >&2
+find . | sort --unique
 
-find . -type f -print0 \
-    | parallel --null --group --keep-order --jobs $(nproc) --max-args 10 \
-        -- \
-        '
-        sed --in-place --regexp-extended '"'"'s#⟨⟨⟨#{{{#g'"'"' {}
-        sed --in-place --regexp-extended '"'"'s#⟩⟩⟩#}}}#g'"'"' {}
-        '
+# find . -type f -print0 \
+#     | parallel --null --group --keep-order --jobs $(nproc) --max-args 10 \
+#         -- \
+#         '
+# sed --in-place --regexp-extended '"'"'s#⟨⟨⟨#\x7B\x7B\x7B#g'"'"' {}
+# sed --in-place --regexp-extended '"'"'s#⟩⟩⟩#\x7D\x7D\x7D#g'"'"' {}
+#         '
 
 # vim: set filetype=sh fileformat=unix nowrap:
