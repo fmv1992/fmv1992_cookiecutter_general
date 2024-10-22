@@ -1,5 +1,8 @@
 """Do nothing.
 
+This is a hook; see:
+<https://cookiecutter.readthedocs.io/en/stable/advanced/hooks.html?highlight=hook>.
+
 One cannot modify/add variables with python at runtime. See
 `fmv1992_cookiecutter_general:c43406f:hooks/pre_gen_project.py:23` for
 details.
@@ -26,7 +29,7 @@ import sys
 
 
 def main():
-    pass
+    print(f"Running `{__file__}`.", file=sys.stderr)
 
 
 if __name__ == "__main__":
