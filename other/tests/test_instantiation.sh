@@ -19,7 +19,7 @@ echo '
 }
 ' | jq > ${tmpdir}/replay.json
 cd ${tmpdir}
-cookiecutter --no-input $HOME/dev/pud/fmv1992_cookiecutter_general $(jq -r 'to_entries[] | [.key, .value] | @tsv' < ${tmpdir}/replay.json | sed -E 's#\t#=#g' | paste --serial)
+cookiecutter --no-input https://github.com/fmv1992/fmv1992_cookiecutter_general $(jq -r 'to_entries[] | [.key, .value] | @tsv' < ${tmpdir}/replay.json | sed -E 's#\t#=#g' | paste --serial)
 cd ${tmpdir}/*/
 git init . && git comm --allow-empty -m "first (empty) commit"
 git add --all && git comm --allow-empty -m "just cloned"
