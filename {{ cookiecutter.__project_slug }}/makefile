@@ -10,10 +10,12 @@ DOCKER_COMPOSE_FILE := ./compose.yaml
 
 DOCKER_COMPOSE_CMD := docker compose
 
+export GIT_SHORT_COMMIT := $(shell git rev-parse --short HEAD 2>/dev/null)$(shell git diff-index --quiet HEAD -- || echo '-dirty')
+
 DOCKER_BUILD_ARGS = \
     --build-arg USER_UID='$(USER_UID)' \
     --build-arg USER_GID='$(USER_GID)' \
-    --build-arg GIT_COMMIT='$(or $(shell git show -s --format=%H), no_git)' \
+    --build-arg GIT_COMMIT='$(GIT_SHORT_COMMIT)' \
     --build-arg GIT_COMMIT_DATE='$(or $(shell git show -s --date=iso8601 --format=%ci), no_git)' \
     --build-arg PROJECT='$(PROJECT)' \
     --build-arg IMAGE_NAME='$(PROJECT)' \
