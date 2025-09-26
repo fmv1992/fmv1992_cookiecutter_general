@@ -6,8 +6,19 @@ timestamp_delete_if_commit_is_older,branch,timestamp_delete_after
 1691876160,t_235_c,0
 1710617227,t_235_b_local,0
 1710617227,t_235_c_local,0
+<<<<<<< Updated upstream
 timestamp_delete_if_commit_is_older,branch,timestamp_delete_after
 1758895943,master,1759500744
 1758895943,nojira_44,1759500744
 1758895943,nojira_44_local,1759500744
 1758895943,t_263_add_ada_support,1759500744
+=======
+1758895993,master,1759500794
+1758895993,nojira_44,1759500794
+1758895993,nojira_44_local,1759500794
+1758895993,t_263_add_ada_support,1759500794
+1758896007,master,1759500808
+1758896007,nojira_44,1759500808
+1758896007,nojira_44_local,1759500808
+1758896007,t_263_add_ada_support,1759500808
+>>>>>>> Stashed changes
