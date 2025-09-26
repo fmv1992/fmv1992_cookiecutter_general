@@ -1,25 +1,25 @@
-# {% set user_jinja = 'user_' + cookiecutter.__project_slug %}
+{% set user_jinja = 'user_' + cookiecutter.__project_slug %}
 
 services:
-  xyz:
-    build:
-      args:
-        - BUILD_DATE
-        - GIT_COMMIT
-        - GIT_COMMIT_DATE
-        - IMAGE_NAME
-        - PROJECT
-        - USER_GID
-        - USER_UID
-      context: .
-    image: "{{ cookiecutter.__project_slug }}:latest"
-    stdin_open: true
-    entrypoint: ""
-    tty: true
-#   volumes:
-#     - type: bind
-#       source: ${ROOT_DIR}/{{ cookiecutter.__project_slug }}
-#       target: /home/{{ user_jinja }}/{{ cookiecutter.__project_slug }}
-#       read_only: false
+    {{ cookiecutter.__project_slug }}:
+        build:
+            args:
+                - BUILD_DATE
+                - GIT_COMMIT
+                - GIT_COMMIT_DATE
+                - IMAGE_NAME
+                - PROJECT
+                - USER_GID
+                - USER_UID
+            context: .
+        entrypoint: ''
+        image: '{{ cookiecutter.__project_slug }}:latest'
+        stdin_open: true
+        tty: true
+#       volumes:
+#           - type: bind
+#             source: ${ROOT_DIR}/{{ cookiecutter.__project_slug }}
+#             target: /home/{{ user_jinja }}/{{ cookiecutter.__project_slug }}
+#             read_only: false
 
 # vim: set filetype=yaml fileformat=unix nowrap spell spelllang=en ts=4 sts=4 sw=4 :
