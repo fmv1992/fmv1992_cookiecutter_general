@@ -6,3 +6,8 @@ timestamp_delete_if_commit_is_older,branch,timestamp_delete_after
 1691876160,t_235_c,0
 1710617227,t_235_b_local,0
 1710617227,t_235_c_local,0
+timestamp_delete_if_commit_is_older,branch,timestamp_delete_after
+1758895943,master,1759500744
+1758895943,nojira_44,1759500744
+1758895943,nojira_44_local,1759500744
+1758895943,t_263_add_ada_support,1759500744
