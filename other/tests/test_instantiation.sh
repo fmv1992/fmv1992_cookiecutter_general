@@ -11,7 +11,7 @@ test -d ./.git
 # Remove previous runs.
 rm -rf /tmp/tmp.cookiecutter.* || true
 
-# Run `make all`.
+# Run `just all`.
 tmpdir=$(mktemp --directory --tmpdir=/tmp/ tmp.cookiecutter.$(date '+%s').XXXXXX)
 echo '
 {
