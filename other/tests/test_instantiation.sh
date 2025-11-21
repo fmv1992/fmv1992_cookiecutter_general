@@ -23,11 +23,15 @@ cookiecutter --no-input $HOME/dev/pud/fmv1992_cookiecutter_general $(jq -r 'to_e
 cd ${tmpdir}/*/
 git init . && git comm --allow-empty -m "first (empty) commit"
 git add --all && git comm --allow-empty -m "just cloned"
-make all
-make down dev check build test format
+just all
+just down dev check build test format
 git_check_clean
 
 tree "${tmpdir}"
 echo "${tmpdir}" > /dev/stderr
+
+echo "-------------------------------------------------------------------------------" >&2
+echo 'Success! ✔' >&2
+echo "-------------------------------------------------------------------------------" >&2
 
 # vim: set filetype=sh fileformat=unix nowrap:
