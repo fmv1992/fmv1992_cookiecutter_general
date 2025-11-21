@@ -14,10 +14,9 @@ services:
                 - USER_GID
                 - USER_UID
             context: .
+        stdin_open: true  # docker run -i
         entrypoint: ''
-        image: '{{ cookiecutter.__project_slug }}:latest'
-        stdin_open: true
-        tty: true
+        tty: true  # docker run -t
 #       volumes:
 #           - type: bind
 #             source: ${ROOT_DIR}/{{ cookiecutter.__project_slug }}

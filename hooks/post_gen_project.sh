@@ -25,6 +25,6 @@ sed --in-place --regexp-extended '"'"'s#⟨⟨⟨#\x7B\x7B\x7B#g'"'"' {}
 sed --in-place --regexp-extended '"'"'s#⟩⟩⟩#\x7D\x7D\x7D#g'"'"' {}
         '
 
-make format
+just format
 
 # vim: set filetype=sh fileformat=unix nowrap:
