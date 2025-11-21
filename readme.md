@@ -11,6 +11,7 @@ cookiecutter https://github.com/fmv1992/fmv1992_cookiecutter_general --no-input 
 ## Test
 
 ```
+cdp fmv1992_cookiecutter_general
 make test
 ```
 
