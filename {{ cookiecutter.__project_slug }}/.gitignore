@@ -2,6 +2,8 @@
 *
 
 # But not these files...
+!*.c
+!compose.yaml
 !*.config
 !dockerfile
 !.dockerignore
@@ -10,11 +12,14 @@
 !.gitignore
 !.gitkeep
 !*.hrl
+!justfile
+!license
 !makefile
 !*.md
 !*.properties
 !.properties
 !*.py
+!*.rec
 !*.sbt
 !.sbt
 !*.scala
@@ -23,6 +28,7 @@
 !*.src
 # !*.txt
 !*.vim
+!.yamlfmt
 
 # Git files.
 !post-checkout

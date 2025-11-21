@@ -25,4 +25,11 @@ sed --in-place --regexp-extended '"'"'s#⟨⟨⟨#\x7B\x7B\x7B#g'"'"' {}
 sed --in-place --regexp-extended '"'"'s#⟩⟩⟩#\x7D\x7D\x7D#g'"'"' {}
         '
 
+justfile_="$(find . -iname 'justfile' | one)"
+
+# Adjust `justfile`.
+sed --regexp-extended 's#〘#\x7B\x7B#g' "${justfile_}" | sed --regexp-extended 's#〙#\x7D\x7D#g' | sponge "${justfile_}"
+
+just format
+
 # vim: set filetype=sh fileformat=unix nowrap:

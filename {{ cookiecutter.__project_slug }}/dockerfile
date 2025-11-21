@@ -1,11 +1,30 @@
-FROM ubuntu@sha256:9101220a875cee98b016668342c489ff0674f247f6ca20dfc91b91c0f28581ae
+ARG BASE_IMAGE
+
+# Select the fastest ubuntu mirror. --- ⟨⟨⟨
+
+FROM ${BASE_IMAGE} AS mirror-updater
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+ARG DEBIAN_FRONTEND=noninteractive
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
+
+ADD --chmod=0755 \
+        https://gist.githubusercontent.com/fmv1992/fd423b486f4a75fe81a6d6bfff2abdc6/raw/88baab86678d7ccaf98ee5cc14affe5ac8f2c0ac/apt_mirror_updater \
+        /tmp/apt_mirror_updater
+RUN bash /tmp/apt_mirror_updater && rm /tmp/apt_mirror_updater
+
+FROM ${BASE_IMAGE}
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+ARG DEBIAN_FRONTEND=noninteractive
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
+
+COPY --from=mirror-updater /sources.list /etc/apt/sources.list
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ARG DEBIAN_FRONTEND=noninteractive
+# --- ⟩⟩⟩
 
 ARG PROJECT
-run set -x ; [[ -n $PROJECT ]]
+RUN set -x ; [[ -n $PROJECT ]]
 ENV PROJECT $PROJECT
 
 # Create an unpriviledged user. --- ⟨⟨⟨
@@ -17,7 +36,7 @@ RUN apt-get update \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
 
-{% set user_jinja = 'user_' + cookiecutter.__project_slug %}
+{% set user_jinja = 'user_' + cookiecutter.__project_slug -%}
 ARG USER_UID
 RUN set -x ; [[ -n $USER_UID ]]
 ARG USER_GID
