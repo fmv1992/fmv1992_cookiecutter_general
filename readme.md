@@ -12,7 +12,37 @@ cookiecutter https://github.com/fmv1992/fmv1992_cookiecutter_general --no-input 
 
 ```
 cdp fmv1992_cookiecutter_general
-make test
+just test
+```
+
+Test the `justfile` itself:
+
+```
+cdp fmv1992_cookiecutter_general
+just --summary \
+    | sed --regexp-extended 's# #\n#g' \
+    | sort \
+    | parallel \
+        --verbose \
+        --no-run-if-empty \
+        --group \
+        --keep-order \
+        --halt soon,fail=1 \
+        --jobs 1 \
+        --max-args 1 \
+        -- \
+        '
+set -Eeuo pipefail
+
+# Necessary since the order of entries is important.
+git checkout -- cookiecutter.json || true
+
+if just {}; then
+    :
+else
+    echo '"'"'✘: `just` rule: `{}`.'"'"'
+fi
+'
 ```
 
 ## TODO

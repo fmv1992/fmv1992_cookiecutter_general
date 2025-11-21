@@ -7,6 +7,6 @@ set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 test -d ./.git
 
-make dev check test
+just dev check test
 
 # vim: set filetype=sh fileformat=unix nowrap:
