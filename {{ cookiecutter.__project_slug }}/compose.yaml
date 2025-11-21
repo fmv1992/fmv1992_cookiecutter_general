@@ -2,7 +2,9 @@
 
 services:
     {{ cookiecutter.__project_slug }}:
+        network_mode: host
         build:
+            network: host
             args:
                 - BUILD_DATE
                 - GIT_COMMIT

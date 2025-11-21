@@ -5,7 +5,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ARG DEBIAN_FRONTEND=noninteractive
 
 ARG PROJECT
-run set -x ; [[ -n $PROJECT ]]
+RUN set -x ; [[ -n $PROJECT ]]
 ENV PROJECT $PROJECT
 
 # Create an unpriviledged user. --- ⟨⟨⟨
